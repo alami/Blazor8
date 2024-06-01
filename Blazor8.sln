@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorCh01", "BlazorCh01\BlazorCh01.csproj", "{190686E6-B398-44BE-8A5C-3ADA756A0E71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorCh01", "BlazorCh01\BlazorCh01.csproj", "{190686E6-B398-44BE-8A5C-3ADA756A0E71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorCh01WebApp", "BlazorCh01WebApp\BlazorCh01WebApp\BlazorCh01WebApp.csproj", "{F0E8222F-CA04-42D7-9D13-B55B8825C959}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorCh01WebApp", "BlazorCh01WebApp\BlazorCh01WebApp\BlazorCh01WebApp.csproj", "{F0E8222F-CA04-42D7-9D13-B55B8825C959}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorCh01WebApp.Client", "BlazorCh01WebApp\BlazorCh01WebApp.Client\BlazorCh01WebApp.Client.csproj", "{F5A1159F-FBE6-4134-A5E2-988676F0D6AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorCh01WebApp.Client", "BlazorCh01WebApp\BlazorCh01WebApp.Client\BlazorCh01WebApp.Client.csproj", "{F5A1159F-FBE6-4134-A5E2-988676F0D6AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{AE92636C-63F6-4E07-B49A-5D8D90E3A770}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{AE92636C-63F6-4E07-B49A-5D8D90E3A770}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Models", "Data.Models\Data.Models.csproj", "{8AC045B4-16F9-49A4-A43D-481E1FD00AA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Models", "Data.Models\Data.Models.csproj", "{8AC045B4-16F9-49A4-A43D-481E1FD00AA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedComponents", "SharedComponents\SharedComponents.csproj", "{E8DC29DC-7373-48FF-8C91-38B7758D3338}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{8AC045B4-16F9-49A4-A43D-481E1FD00AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AC045B4-16F9-49A4-A43D-481E1FD00AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AC045B4-16F9-49A4-A43D-481E1FD00AA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8DC29DC-7373-48FF-8C91-38B7758D3338}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8DC29DC-7373-48FF-8C91-38B7758D3338}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8DC29DC-7373-48FF-8C91-38B7758D3338}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8DC29DC-7373-48FF-8C91-38B7758D3338}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
