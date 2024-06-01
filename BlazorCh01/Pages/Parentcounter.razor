@@ -1,0 +1,9 @@
+﻿@page "/parentcounter"
+@rendermode InteractiveAuto
+
+<Counter IncrementAmount="@incrementamount" CurrentCount="@currentcount"/>
+
+@code {
+int incrementamount = 10;
+int currentcount = 0;
+}
