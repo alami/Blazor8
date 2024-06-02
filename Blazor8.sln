@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Models", "Data.Models\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedComponents", "SharedComponents\SharedComponents.csproj", "{E8DC29DC-7373-48FF-8C91-38B7758D3338}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorCh01server", "BlazorCh01server\BlazorCh01server.csproj", "{30977CE3-3A34-4B30-B95F-79B698D840D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorCh01server", "BlazorCh01server\BlazorCh01server.csproj", "{30977CE3-3A34-4B30-B95F-79B698D840D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
