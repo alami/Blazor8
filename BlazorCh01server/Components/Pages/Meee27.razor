@@ -1,0 +1,55 @@
+﻿@page "/Meee27"
+@rendermode InteractiveServer
+<div>
+    <input @bind-value="@item" />
+    <p>Value: @item</p>
+</div>
+<p>равноценно</p>
+<div>
+    <input value="@item1" @onchange="@((ChangeEventArgs e) => item1 = e.Value.ToString())" />
+    <p>Value: @item1</p>
+</div>
+<p>сокращенная версия</p>
+<div>
+    <input type="text" @bind="@item2" />
+    <p>Value: @item2</p>
+</div>
+<p>:event="oninput"</p>
+<div>
+    <input @bind-value="@itemEvent" @bind-value:event="oninput" />
+    <p>Value: @itemEvent</p>
+</div>
+<p>
+    <input @bind-value="divStyle" @bind-value:event="oninput" style="width:300px;" />
+</p>
+<div style="@divStyle"></div>
+<p>onchange vs oninput</p>
+<div>
+    <input @bind-value="number" @bind-value:event="oninput" />
+    <p>@number</p>
+
+</div>
+<p>bind:after</p>
+<input @bind="searchText" @bind:after="PerformSearch" />
+<ul>
+    @foreach (var item in found)
+    {
+        <li>@item</li>
+    }
+</ul>
+@code {
+    string item = "hello";
+    string item1 = "hello";
+    string item2 = "hello";
+    string itemEvent = "hello";
+    string divStyle = "background-color:blue;width:100px;height:10px;";
+    double number = 23.8;
+
+    List<string> items = ["Tom", "T", "o", "m", "To"];     // условная база данных
+    List<string> found = [];    // найденные данные
+    string searchText = "";     // ключ поиска
+    async Task PerformSearch() {
+        await Task.Delay(400);  // для имитации долгой работы
+        found = items.Where(item => item.Contains(searchText)).ToList();
+    }
+}

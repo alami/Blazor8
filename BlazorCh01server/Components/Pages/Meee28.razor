@@ -1,0 +1,50 @@
+﻿@page "/meee28"
+@rendermode InteractiveServer
+@*т.к. задействуется интерактивность,
+    то приложение должно поддерживать интерактивный рендеринг
+    или на сервере(ТУТ), или на клиенте*@
+<p>separate modificators</p>
+<input type="number" @bind:get="age" @bind:set="SetAge" />
+<p>Age: @age</p>
+
+<p>object get;set</p>
+<input type="number" @bind="Age" />
+<p>Age: @Age</p>
+
+<p>вложенных компонентов</p>
+<Meee28inc Name="HEEELO" />
+
+<p>... 2 ways</p>
+<Meee28inc2ways @bind-Search="text" />
+<p><button @onclick="Clear">Clear</button></p>
+<ul>
+    @foreach (var item in Found)
+    {
+        <li>@item</li>
+    }
+</ul>
+
+@code {
+    int age = 18;
+    void SetAge(int value)
+    {
+        if (value > 0 && value < 20) age = value;
+    }
+
+    int age1 = 18;
+    int Age
+    {
+        get { return age1; }
+        set { if (value > 10 && value < 21) age1 = value; }
+    }
+
+    string text = "C";    // искомое слово
+    List<string> database = ["C#", "C++", "JavaScript", "Java", "Python"];
+    void Clear() => text = string.Empty;
+    List<string> Found
+    {
+        get { return database.Where(name => name.Contains(text)).ToList(); }
+    }
+
+
+}
