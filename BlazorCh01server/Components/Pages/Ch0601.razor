@@ -1,0 +1,15 @@
+﻿@page "/ch0601"
+<EditForm Model="ObjTmp">
+    <InputDate @bind-Value:get="ObjTmp.dtmp" @bind-Value:set="(value) => {ObjTmp.dtmp=DateTime.Today;}"></InputDate>
+
+
+</EditForm>
+@code {
+    public class ClassTmp
+    {
+        public DateTime dtmp;
+    }
+    ClassTmp ObjTmp { get; set; } = new();
+
+
+}
