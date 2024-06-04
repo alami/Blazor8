@@ -1,14 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
 
-namespace SharedComponents.ReusableComponents
+namespace SharedComponents
 {
     public class BootstrapFieldCssClassProvider : FieldCssClassProvider
     {
-        public override string GetFieldCssClass(EditContext editContext,
-in FieldIdentifier fieldIdentifier)
+        public override string GetFieldCssClass(EditContext editContext, in FieldIdentifier fieldIdentifier)
         {
-            var isValid = !editContext.
-            GetValidationMessages(fieldIdentifier).Any();
+            var isValid = !editContext.GetValidationMessages(fieldIdentifier).Any();
             var isModified = editContext.IsModified(fieldIdentifier);
             return (isModified, isValid) switch
             {
