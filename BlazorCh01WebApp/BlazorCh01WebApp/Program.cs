@@ -2,6 +2,7 @@ using Data;
 using Data.Models.Interfaces;
 using BlazorCh01WebApp.Client.Pages;
 using BlazorCh01WebApp.Components;
+using BlazorCh01WebApp.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,5 +46,7 @@ app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(BlazorCh01WebApp.Client._Imports).Assembly)
     .AddAdditionalAssemblies(typeof(SharedComponents.Pages.Home).Assembly);
+
+app.MapBlogPostApi();
 
 app.Run();
