@@ -7,8 +7,7 @@
 {
     <PageTitle>@BlogPost.Title</PageTitle>
     <HeadContent>
-        <meta property="og:title"
-              content="@BlogPost.Title" />
+        <meta property="og:title" content="@BlogPost.Title" />
         <meta property="og:description" content="@(new string(BlogPost.Text.Take(100).ToArray()))" />
         <meta property="og:image" content="@($"{_navman.BaseUri}/pathtoanimage.png")" />
         <meta property="og:url" content="@_navman.Uri" />
@@ -16,13 +15,13 @@
     </HeadContent>
     <h2>@BlogPost.Title</h2>
     @((MarkupString)Markdig.Markdown.ToHtml(BlogPost.Text, pipeline))
-    
+    <hr />
+    <Comments BlogPostId="@BlogPostId" />
 }
 
 @code {
     [Parameter]
     public string BlogPostId { get; set; }
-
     public BlogPost? BlogPost { get; set; }
 
     protected async override Task OnParametersSetAsync()
@@ -34,8 +33,8 @@
     protected override Task OnInitializedAsync()
     {
         pipeline = new MarkdownPipelineBuilder()
-        .UseEmojiAndSmiley()
-        .Build();
+            .UseEmojiAndSmiley()
+            .Build();
         return base.OnInitializedAsync();
     }
 }

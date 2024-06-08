@@ -4,7 +4,8 @@
 @inject IJSRuntime JSRuntime
 @implements IDisposable
 
-<NavigationLock ConfirmExternalNavigation="@(CurrentEditContext.IsModified() && CheckNavigation)"
+<NavigationLock ConfirmExternalNavigation =
+                "@(CurrentEditContext.IsModified() && CheckNavigation)"
                 OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
 
 @code {
@@ -19,8 +20,7 @@
         CurrentEditContext.OnFieldChanged += OnFieldChangedAsync;
         return base.OnInitializedAsync();
     }
-    private async void OnFieldChangedAsync(object?
-    Sender, FieldChangedEventArgs args)
+    private async void OnFieldChangedAsync(object? Sender, FieldChangedEventArgs args)
     {
         await InvokeAsync(StateHasChanged);
     }
@@ -32,9 +32,7 @@
     {
         if (CurrentEditContext.IsModified() && CheckNavigation)
         {
-            var isConfirmed = await JSRuntime.
-            InvokeAsync<bool>("confirm",
-            InternalNavigationMessage);
+            var isConfirmed = await JSRuntime.InvokeAsync<bool>("confirm", InternalNavigationMessage);
             if (!isConfirmed)
             {
                 context.PreventNavigation();
