@@ -48,5 +48,8 @@ app.MapRazorComponents<App>()
     .AddAdditionalAssemblies(typeof(SharedComponents.Pages.Home).Assembly);
 
 app.MapBlogPostApi();
+app.MapCategoryApi();
+app.MapTagApi();
+app.MapCommentApi();
 
 app.Run();
