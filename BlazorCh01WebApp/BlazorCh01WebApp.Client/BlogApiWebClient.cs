@@ -25,9 +25,8 @@ namespace BlazorCh01WebApp.Client
         public async Task<List<BlogPost>?> GetBlogPostsAsync(int numberofposts, int startindex)
         {
             var httpclient = _factory.CreateClient("Api");
-            return await httpclient.
-            GetFromJsonAsync<List<BlogPost>>
-        ($"/api/BlogPosts ? numberofposts ={ numberofposts}&startindex ={ startindex}");
+            return await httpclient.GetFromJsonAsync<List<BlogPost>>
+                ($"/api/BlogPosts?numberofposts ={ numberofposts}&startindex ={ startindex}");
         }
 
         public async Task<BlogPost?> SaveBlogPostAsync(BlogPost item)
@@ -35,8 +34,7 @@ namespace BlazorCh01WebApp.Client
             try
             {
                 var httpclient = _factory.CreateClient("Api");
-                var response = await httpclient.PutAsJsonAsync<BlogPost>
-                ("api/BlogPosts", item);
+                var response = await httpclient.PutAsJsonAsync<BlogPost>("api/BlogPosts", item);
                 var json = await response.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<BlogPost>(json);
             }
@@ -139,8 +137,7 @@ namespace BlazorCh01WebApp.Client
         public async Task<List<Comment>> GetCommentsAsync(string blogpostid)
         {
             var httpclient = _factory.CreateClient("Api");
-            return await httpclient.
-            GetFromJsonAsync<List<Comment>>($"api/Comments/{blogpostid}");
+            return await httpclient.GetFromJsonAsync<List<Comment>>($"api/Comments/{blogpostid}");
         }
         public async Task DeleteCommentAsync(string id)
         {
