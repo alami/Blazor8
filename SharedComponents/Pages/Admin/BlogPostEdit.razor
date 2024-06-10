@@ -5,7 +5,7 @@
 @inject NavigationManager _manager
 @using Markdig;
 @using SharedComponents.ReusableComponents
-
+@attribute [Authorize]
 <EditForm Model="Post" OnValidSubmit="SavePostAsync">
     <DataAnnotationsValidator />
     <CustomCssClassProvider ProviderType="BootstrapFieldCssClassProvider" />
