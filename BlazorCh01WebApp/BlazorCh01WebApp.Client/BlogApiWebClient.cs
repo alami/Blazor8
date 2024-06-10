@@ -156,8 +156,7 @@ namespace BlazorCh01WebApp.Client
             try
             {
                 var httpclient = _factory.CreateClient("Api");
-                var response = await httpclient.
-                PutAsJsonAsync<Comment>("api/Comments", item);
+                var response = await httpclient.PutAsJsonAsync<Comment>("api/Comments", item);
                 var json = await response.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<Comment>(json);
             }

@@ -3,6 +3,11 @@ using Data.Models.Interfaces;
 using BlazorCh01WebApp.Client.Pages;
 using BlazorCh01WebApp.Components;
 using BlazorCh01WebApp.Endpoints;
+using BlazorCh01WebApp;
+using Auth0.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +26,16 @@ Configure(options =>
     options.CommentsFolder = "Comments";
 });
 builder.Services.AddScoped<IBlogApi, BlogApiJsonDirectAccess>();
+
+builder.Services.AddScoped<AuthenticationStateProvider,
+PersistingServerAuthenticationStateProvider>();
+builder.Services.AddCascadingAuthenticationState();
+builder.Services
+.AddAuth0WebAppAuthentication(options =>
+{
+    options.Domain = builder.Configuration["Auth0:Authority"] ?? ""; ;
+    options.ClientId = builder.Configuration["Auth0:ClientId"] ?? ""; ;
+});
 
 var app = builder.Build();
 
@@ -41,6 +56,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
@@ -51,5 +69,21 @@ app.MapBlogPostApi();
 app.MapCategoryApi();
 app.MapTagApi();
 app.MapCommentApi();
+
+app.MapGet("account/login", async(string redirectUri, HttpContext context) =>
+{
+    var authenticationProperties = new LoginAuthenticationPropertiesBuilder()
+        .WithRedirectUri(redirectUri)
+        .Build();
+    await context.ChallengeAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
+});
+app.MapGet("authentication/logout", async (HttpContext context) =>
+{
+    var authenticationProperties = new LogoutAuthenticationPropertiesBuilder()
+        .WithRedirectUri("/")
+        .Build();
+    await context.SignOutAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
+    await context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+});
 
 app.Run();

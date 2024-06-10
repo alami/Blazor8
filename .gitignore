@@ -3,6 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 ln.txt
+/BlazorCh01WebApp/BlazorCh01WebApp/appsettings.json
 
 # User-specific files
 *.rsuser
