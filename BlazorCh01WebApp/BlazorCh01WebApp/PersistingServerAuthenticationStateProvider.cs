@@ -8,41 +8,47 @@ using Microsoft.Extensions.Options;
 using System.Diagnostics;
 namespace BlazorCh01WebApp
 {
-    internal sealed class PersistingServerAuthenticationStateProvider :
-            ServerAuthenticationStateProvider, IDisposable
+    internal sealed class PersistingServerAuthenticationStateProvider : ServerAuthenticationStateProvider, IDisposable
     {
         private readonly PersistentComponentState state;
         private readonly IdentityOptions options;
-        private readonly PersistingComponentStateSubscription
-        subscription;
+
+        private readonly PersistingComponentStateSubscription subscription;
+
         private Task<AuthenticationState>? authenticationStateTask;
+
         public PersistingServerAuthenticationStateProvider(
-        PersistentComponentState persistentComponentState,
-        IOptions<IdentityOptions> optionsAccessor)
+            PersistentComponentState persistentComponentState,
+            IOptions<IdentityOptions> optionsAccessor)
         {
             state = persistentComponentState;
             options = optionsAccessor.Value;
+
             AuthenticationStateChanged += OnAuthenticationStateChanged;
             subscription = state.RegisterOnPersisting(OnPersistingAsync, RenderMode.InteractiveWebAssembly);
         }
-        private void
-        OnAuthenticationStateChanged(Task<AuthenticationState> task)
+
+        private void OnAuthenticationStateChanged(Task<AuthenticationState> task)
         {
             authenticationStateTask = task;
         }
+
         private async Task OnPersistingAsync()
         {
             if (authenticationStateTask is null)
             {
-                throw new UnreachableException($"Authentication state not set in { nameof(OnPersistingAsync) }().");
+                throw new UnreachableException($"Authentication state not set in {nameof(OnPersistingAsync)}().");
             }
+
             var authenticationState = await authenticationStateTask;
             var principal = authenticationState.User;
+
             if (principal.Identity?.IsAuthenticated == true)
             {
                 var userId = principal.FindFirst(options.ClaimsIdentity.UserIdClaimType)?.Value;
                 var email = principal.FindFirst(options.ClaimsIdentity.EmailClaimType)?.Value;
                 var roles = principal.FindAll(options.ClaimsIdentity.RoleClaimType);
+
                 if (userId != null)
                 {
                     state.PersistAsJson(nameof(UserInfo), new UserInfo
@@ -54,10 +60,12 @@ namespace BlazorCh01WebApp
                 }
             }
         }
+
         public void Dispose()
         {
             subscription.Dispose();
             AuthenticationStateChanged -= OnAuthenticationStateChanged;
         }
     }
+
 }

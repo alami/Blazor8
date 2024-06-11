@@ -10,14 +10,14 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: true);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
-builder.Services.AddOptions<BlogApiJsonDirectAccessSetting>().
-Configure(options =>
+builder.Services.AddOptions<BlogApiJsonDirectAccessSetting>().Configure(options =>
 {
     options.DataPath = @"..\..\..\Data\";
     options.BlogPostsFolder = "Blogposts";
@@ -27,9 +27,9 @@ Configure(options =>
 });
 builder.Services.AddScoped<IBlogApi, BlogApiJsonDirectAccess>();
 
-builder.Services.AddScoped<AuthenticationStateProvider,
-PersistingServerAuthenticationStateProvider>();
+builder.Services.AddScoped<AuthenticationStateProvider,PersistingServerAuthenticationStateProvider>();
 builder.Services.AddCascadingAuthenticationState();
+
 builder.Services
 .AddAuth0WebAppAuthentication(options =>
 {
@@ -62,7 +62,7 @@ app.UseAuthorization();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(BlazorCh01WebApp.Client._Imports).Assembly)
+    .AddAdditionalAssemblies(typeof(Counter).Assembly)
     .AddAdditionalAssemblies(typeof(SharedComponents.Pages.Home).Assembly);
 
 app.MapBlogPostApi();
@@ -77,6 +77,7 @@ app.MapGet("account/login", async(string redirectUri, HttpContext context) =>
         .Build();
     await context.ChallengeAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
 });
+
 app.MapGet("authentication/logout", async (HttpContext context) =>
 {
     var authenticationProperties = new LogoutAuthenticationPropertiesBuilder()
