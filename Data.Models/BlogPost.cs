@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,10 @@ namespace Data.Models
     public class BlogPost
     {
         public string? Id { get; set; }
+        [Required]
+        [MinLength(5)]
         public string Title { get; set; } = string.Empty;
+        [Required]
         public string Text { get; set; } = string.Empty;
         public DateTime PublishDate { get; set; }
         public Category? Category { get; set; }
