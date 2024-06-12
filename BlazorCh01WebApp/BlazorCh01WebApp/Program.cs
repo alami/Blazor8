@@ -8,6 +8,8 @@ using Auth0.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Authorization;
+using SharedComponents.Interfaces;
+using BlazorCh01WebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: true);
@@ -25,13 +27,13 @@ builder.Services.AddOptions<BlogApiJsonDirectAccessSetting>().Configure(options 
     options.CategoriesFolder = "Categories";
     options.CommentsFolder = "Comments";
 });
-builder.Services.AddScoped<IBlogApi, BlogApiJsonDirectAccess>();
 
+builder.Services.AddScoped<IBlogApi, BlogApiJsonDirectAccess>();
 builder.Services.AddScoped<AuthenticationStateProvider,PersistingServerAuthenticationStateProvider>();
 builder.Services.AddCascadingAuthenticationState();
+builder.Services.AddScoped<IBrowserStorage, BlogProtectedBrowserStorage>();
 
-builder.Services
-.AddAuth0WebAppAuthentication(options =>
+builder.Services.AddAuth0WebAppAuthentication(options =>
 {
     options.Domain = builder.Configuration["Auth0:Authority"] ?? ""; ;
     options.ClientId = builder.Configuration["Auth0:ClientId"] ?? ""; ;
@@ -64,7 +66,6 @@ app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(Counter).Assembly)
     .AddAdditionalAssemblies(typeof(SharedComponents.Pages.Home).Assembly);
-
 app.MapBlogPostApi();
 app.MapCategoryApi();
 app.MapTagApi();
