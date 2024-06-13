@@ -20,12 +20,13 @@
     <ProjectReference Include="..\Data.Models\Data.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Comments.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\Comments.razor" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<Content Update="_Imports.razor">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Pages\Admin\" />
+	</ItemGroup>
+	
 </Project>

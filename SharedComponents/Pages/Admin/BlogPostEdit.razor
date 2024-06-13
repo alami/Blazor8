@@ -1,12 +1,16 @@
 ﻿@page "/admin/blogposts/new"
 @page "/admin/blogposts/{Id}"
 @*@rendermode InteractiveServer*@
-@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@*@rendermode @(new InteractiveServerRenderMode(prerender: false))*@
+@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
 @inject IBlogApi _api
 @inject NavigationManager _manager
 @inject SharedComponents.Interfaces.IBrowserStorage _storage
 @using Markdig;
 @using SharedComponents.ReusableComponents
+@using SharedComponents.Interfaces
+@inject IBlogNotificationService _notificationService
+
 @attribute [Authorize]
 <EditForm Model="Post" OnValidSubmit="SavePostAsync">
     <DataAnnotationsValidator />
@@ -74,6 +78,7 @@
     {
         if (!string.IsNullOrEmpty(Post.Text))
         {
+            await _notificationService.SendNotification(Post);
             markDownAsHTML = Markdig.Markdown.ToHtml(Post.Text, pipeline);
             if (string.IsNullOrEmpty(Post.Id))
             {

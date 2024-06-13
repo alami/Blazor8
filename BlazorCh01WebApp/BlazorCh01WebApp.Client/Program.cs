@@ -18,5 +18,6 @@ builder.Services.AddHttpClient("Api", client => client.BaseAddress = new Uri(bui
 builder.Services.AddTransient<IBlogApi, BlogApiWebClient>();
 builder.Services.AddBlazoredSessionStorage();
 builder.Services.AddScoped<IBrowserStorage, BlogBrowserStorage>();
+builder.Services.AddSingleton<IBlogNotificationService, BlazorWebAssemblyBlogNotificationService>();
 
 await builder.Build().RunAsync();
